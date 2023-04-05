@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, RouterLink } from '@angular/router';
-import { Subscription, map, mergeMap } from 'rxjs';
+import { Subscription, map, mergeMap, tap } from 'rxjs';
 import { ScoresService } from 'src/app/core/providers/scores/scores.service';
 import { TeamsService } from 'src/app/core/providers/teams/teams.service';
 import { Pagination } from 'src/app/shared/models/pagination.type';
 import { Team } from 'src/app/shared/models/team.type';
-import { ScorePipe } from 'src/app/shared/pipes/score.pipe';
+import { ResultsRowComponent } from '../results-row/results-row.component';
 
 @Component({
   selector: 'app-results',
   standalone: true,
-  imports: [CommonModule, RouterLink, ScorePipe],
+  imports: [CommonModule, RouterLink, ResultsRowComponent],
   template: `<div class="card flex-col-stretch">
+      <h3>{{ teamCode ? teamCode + ' l' : 'L' }}ast games</h3>
       <div class="flex-col-stretch" *ngIf="teamScores; else loading">
-        <div *ngFor="let teamScore of teamScores">{{ teamScore | score }}</div>
+        <app-results-row class="flex-row" *ngFor="let teamScore of teamScores" [results]="teamScore"></app-results-row>
       </div>
       <button id="backBtn" class="btn selectable" style="margin-bottom: 1rem;" [routerLink]="['/']">
         << Back to team tracker
@@ -23,6 +24,7 @@ import { ScorePipe } from 'src/app/shared/pipes/score.pipe';
     <ng-template #loading><div class="lds-dual-ring" style="margin-top: 10rem;"></div></ng-template>`,
 })
 export class ResultsComponent implements OnInit, OnDestroy {
+  teamCode: string | undefined;
   teamScores:
     | {
         home_team: string;
@@ -31,6 +33,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         visitor_score: number;
       }[]
     | undefined;
+
   constructor(
     private readonly teams: TeamsService,
     private readonly scores: ScoresService,
@@ -44,6 +47,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
       this.route.paramMap
         .pipe(
           map((params: ParamMap) => params.get('teamCode')),
+          tap(teamCode => (this.teamCode = teamCode ?? undefined)),
           mergeMap((teamCode: string | null) => {
             if (!teamCode) throw new Error('Team code not found :|');
             return this.teams

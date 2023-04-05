@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', loadComponent: () => import('./app/features/tracker/tracker.component').then(m => m.TrackerComponent) },
   {
     path: 'results/:teamCode',
-    loadComponent: () => import('./app/features/results/results.component').then(m => m.ResultsComponent),
+    loadComponent: () => import('./app/features/results-card/results.component').then(m => m.ResultsComponent),
   },
   { path: '**', redirectTo: '' },
 ];
