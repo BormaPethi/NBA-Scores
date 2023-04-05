@@ -13,7 +13,7 @@ import { LogoPipe } from 'src/app/shared/pipes/logo.pipe';
     <span class="bold">{{ results.visitor_team }}</span>
     <img [src]="results.visitor_team | logo" class="logo" />
   </ng-container> `,
-  styles: ['.logo { height: 50px; weight: 50px }', '.bold { font-weight: 700; }'],
+  styles: ['.logo { height: 50px; width: 50px }', '.bold { font-weight: 700; }'],
 })
 export class ResultsRowComponent {
   @Input() results!: { home_team: string; home_score: number; visitor_team: string; visitor_score: number };
