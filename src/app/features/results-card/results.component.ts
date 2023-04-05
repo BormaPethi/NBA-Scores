@@ -17,9 +17,7 @@ import { ResultsRowComponent } from '../results-row/results-row.component';
       <div class="flex-col-stretch" *ngIf="teamScores; else loading">
         <app-results-row class="flex-row" *ngFor="let teamScore of teamScores" [results]="teamScore"></app-results-row>
       </div>
-      <button id="backBtn" class="btn selectable" style="margin-bottom: 1rem;" [routerLink]="['/']">
-        << Back to team tracker
-      </button>
+      <button id="backBtn" class="btn selectable" [routerLink]="['/']"><< Back to team tracker</button>
     </div>
     <ng-template #loading><div class="lds-dual-ring" style="margin-top: 10rem;"></div></ng-template>`,
 })
