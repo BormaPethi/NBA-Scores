@@ -16,7 +16,7 @@ import { ScorePipe } from 'src/app/shared/pipes/score.pipe';
       <div class="flex-col-stretch" *ngIf="teamScores; else loading">
         <div *ngFor="let teamScore of teamScores">{{ teamScore | score }}</div>
       </div>
-      <button id="backBtn" class="btn selectable" style="margin-bottom: 1rem;" [routerLink]="['']">
+      <button id="backBtn" class="btn selectable" style="margin-bottom: 1rem;" [routerLink]="['/']">
         << Back to team tracker
       </button>
     </div>

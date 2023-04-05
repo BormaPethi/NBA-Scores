@@ -9,6 +9,5 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet, TrackerComponent, TeamListComponent],
   template: `<h1>NBA Scores</h1>
     <router-outlet></router-outlet>`,
-  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {}

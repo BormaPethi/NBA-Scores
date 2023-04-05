@@ -17,10 +17,6 @@ export class ScoresService {
     return this.api.get<Team>(`teams/${id}`);
   }
 
-  public getTeamImgSrc(abbreviation: string) {
-    return `https://interstate21.com/nba-logos/${abbreviation}.png`;
-  }
-
   private getLastGamesByTeam(teamId: string): Observable<Score[]> {
     let params = new HttpParams();
     params = params.appendAll({
@@ -36,12 +32,20 @@ export class ScoresService {
   public getWLbyTeam(teamId: string) {
     return this.getLastGamesByTeam(teamId).pipe(
       map((result: Score[]) =>
-        result.map(game => {
-          return {
-            scored: game.home_team.id.toString() === teamId ? game.home_team_score : game.visitor_team_score,
-            conceded: game.home_team.id.toString() !== teamId ? game.home_team_score : game.visitor_team_score,
-          };
-        })
+        result.reduce(
+          (acc, elm) => {
+            const scored = elm.home_team.id.toString() === teamId ? elm.home_team_score : elm.visitor_team_score;
+            const conceded = elm.home_team.id.toString() !== teamId ? elm.home_team_score : elm.visitor_team_score;
+            acc.played.push(scored > conceded ? 'W' : 'L');
+
+            return {
+              scored: acc.scored + scored,
+              conceded: acc.conceded + conceded,
+              played: acc.played,
+            };
+          },
+          { scored: 0, conceded: 0, played: [] as ('W' | 'L')[] }
+        )
       )
     );
   }
