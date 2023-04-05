@@ -33,9 +33,12 @@ import { Team } from '../../shared/models/team.type';
       <button id="results{{ team.abbreviation }}" class="btn selectable" [routerLink]="['results', team.abbreviation]">
         See game results >>
       </button>
-      <a id="remove{{ team.abbreviation }}" class="remove" (click)="deleteEvent.emit(this.teamId)"
-        ><img src="/assets/close.svg"
-      /></a>
+      <a id="remove{{ team.abbreviation }}" class="remove" (click)="deleteEvent.emit(this.teamId)">
+        <svg fill="#FFFFFF" height="15px" width="15px" viewBox="0 0 512 512">
+          <polygon
+            points="512,59.076 452.922,0 256,196.922 59.076,0 0,59.076 196.922,256 0,452.922 59.076,512 256,315.076 452.922,512 512,452.922 315.076,256" />
+        </svg>
+      </a>
     </ng-container>
     <ng-template #loading><div class="lds-dual-ring" style="margin-top: 10rem;"></div></ng-template>
   `,
