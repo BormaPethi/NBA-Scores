@@ -16,7 +16,7 @@ import { TeamsService } from '../../core/providers/teams/teams.service';
     </select>
     <button
       id="trackBtn"
-      class="trackBtn selectable"
+      class="btn selectable"
       (click)="nba.trackTeam(selectedTeam)"
       [disabled]="selectedTeam === '-1'">
       Track

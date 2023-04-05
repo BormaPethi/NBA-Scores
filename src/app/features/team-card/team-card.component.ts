@@ -8,30 +8,34 @@ import { Team } from '../../shared/models/team.type';
   selector: 'app-team-card',
   standalone: true,
   imports: [CommonModule],
-  template: `<div *ngIf="team" class="flex-row card">
-    <img [src]="nba.getTeamImgSrc(team.abbreviation)" class="logo" />
-    <div class="flex-col">
+  template: `
+    <ng-container *ngIf="team">
+      <img [src]="nba.getTeamImgSrc(team.abbreviation)" class="logo" />
       <h2>{{ team.full_name }} [{{ team.abbreviation }}]</h2>
       <p>{{ team.conference }}ern conference</p>
-      <ng-container *ngIf="scores">
-        <div class="flex-row">
-          <div
-            class="tag"
-            *ngFor="let score of scores"
-            [style.background-color]="score.scored > score.conceded ? 'green' : 'red'">
-            {{ score.scored > score.conceded ? 'W' : 'L' }}
+      <div class="flex-col-stretch">
+        <ng-container *ngIf="scores">
+          <div class="flex-row">
+            <div
+              class="tag"
+              *ngFor="let score of scores"
+              [style.background-color]="score.scored > score.conceded ? 'green' : 'red'">
+              {{ score.scored > score.conceded ? 'W' : 'L' }}
+            </div>
           </div>
-        </div>
-      </ng-container>
-      <div>Avg pts scored: {{ avg('scored') | number : '1.0-0' }}</div>
-      <div>Avg pts conceded: {{ avg('conceded') | number : '1.0-0' }}</div>
-    </div>
-    <img src="/assets/fermer.png" class="delete" (click)="delete()" />
-  </div> `,
+        </ng-container>
+        <div>Avg pts scored: {{ avg('scored') | number : '1.0-0' }}</div>
+        <div>Avg pts conceded: {{ avg('conceded') | number : '1.0-0' }}</div>
+      </div>
+      <button id="results{{ team.abbreviation }}" class="btn selectable">See game results >></button>
+      <a id="remove{{ team.abbreviation }}" (click)="delete()"><img src="/assets/fermer.png" class="delete" /></a>
+    </ng-container>
+  `,
 })
 export class TeamCardComponent implements OnInit, OnDestroy {
   @Input() teamId!: string;
   @Output() deleteEvent = new EventEmitter<string>();
+
   team: Team | undefined;
   scores: { scored: number; conceded: number }[] | undefined;
   subs: Subscription[] = [];

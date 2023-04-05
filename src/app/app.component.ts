@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { TrackerComponent } from './features/tracker/tracker.component';
-import { TeamCardComponent } from './features/team-card/team-card.component';
+import { TeamListComponent } from './features/team-list/team-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppRoutingModule, TrackerComponent, TeamCardComponent],
+  imports: [AppRoutingModule, TrackerComponent, TeamListComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
