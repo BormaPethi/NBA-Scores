@@ -22,6 +22,7 @@ export class TeamsService {
     const storage = localStorage.getItem(TRACK_FIELD_NAME);
     const storedTeams: string[] = storage ? JSON.parse(storage) : [];
 
+    if (storedTeams.includes(teamId)) return;
     storedTeams.push(teamId);
     localStorage.setItem(TRACK_FIELD_NAME, JSON.stringify(storedTeams));
     this.teams$.next(storedTeams);

@@ -18,9 +18,4 @@ import { TeamCardComponent } from '../team-card/team-card.component';
 })
 export class TeamListComponent {
   constructor(public readonly nba: TeamsService) {}
-
-  ngOnInit() {
-    this.nba.teams$.subscribe(v => console.log(v));
-    console.log(this.nba.getTrackedTeams());
-  }
 }

@@ -12,11 +12,6 @@ html {
     sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-h2,
-p {
-  margin: 0;
-}
-
 .card {
   position: relative;
   background-color: var(--light-bg);
@@ -25,9 +20,10 @@ p {
   border-radius: 6px;
   padding: 0.5rem 1rem;
   width: 20rem;
+  height: 30rem;
 }
 
-.teamSelect {
+.slct {
   background-color: var(--light-bg);
   color: var(--color);
   padding: 0.2rem 1rem;
@@ -82,13 +78,8 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: space-between;
   gap: 1rem;
-}
-
-.logo {
-  height: 250px;
-  width: 250px;
 }
 
 .tag {
@@ -114,4 +105,29 @@ p {
   align-items: flex-start;
   justify-content: stretch;
   gap: 1rem;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
